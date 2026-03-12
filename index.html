@@ -1,46 +1,515 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>AhmaStone Handyman Service</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{
-font-family: Arial, sans-serif;
-text-align:center;
-padding:50px;
-background:#f4f4f4;
-}
-button{
-padding:15px 25px;
-font-size:18px;
-background:#222;
-color:white;
-border:none;
-border-radius:8px;
-cursor:pointer;
-}
-</style>
-</head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AhmaStone Handyman Service</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #222;
+      background: #f7f4ef;
+      line-height: 1.5;
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.96);
+      border-bottom: 1px solid #ddd;
+      padding: 14px 20px;
+      z-index: 10;
+    }
+    .topbar-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      font-weight: 700;
+      font-size: 20px;
+    }
+    .subbrand {
+      font-size: 12px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .nav-actions a {
+      text-decoration: none;
+      margin-left: 10px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      display: inline-block;
+      font-weight: 700;
+    }
+    .btn-dark {
+      background: #222;
+      color: white;
+    }
+    .btn-light {
+      background: white;
+      color: #222;
+      border: 1px solid #ccc;
+    }
+    .hero {
+      background: linear-gradient(135deg, #f4efe7, #ffffff);
+      padding: 70px 20px 50px;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 30px;
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 14px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+    h1 {
+      font-size: 50px;
+      line-height: 1.08;
+      margin: 0 0 18px;
+    }
+    .hero p {
+      font-size: 20px;
+      color: #555;
+      margin-bottom: 24px;
+    }
+    .hero-buttons a {
+      text-decoration: none;
+      margin-right: 12px;
+      margin-bottom: 12px;
+      padding: 14px 20px;
+      border-radius: 14px;
+      display: inline-block;
+      font-weight: 700;
+    }
+    .hero-card {
+      background: #222;
+      color: white;
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.12);
+    }
+    .hero-card h3 {
+      margin-top: 0;
+      font-size: 30px;
+    }
+    .hero-card p {
+      color: #ddd;
+      font-size: 17px;
+    }
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .badge {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    section {
+      padding: 60px 20px;
+    }
+    .section-title {
+      font-size: 36px;
+      margin: 0 0 12px;
+    }
+    .section-intro {
+      color: #666;
+      font-size: 18px;
+      max-width: 800px;
+      margin-bottom: 28px;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      border: 1px solid #e4e0d8;
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: 0 6px 18px rgba(0,0,0,.04);
+    }
+    .card h3 {
+      margin-top: 0;
+      font-size: 24px;
+    }
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+    .photo-box {
+      background: #ece7de;
+      border: 1px dashed #bbb;
+      border-radius: 22px;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #777;
+      text-align: center;
+      padding: 20px;
+      font-weight: 700;
+    }
+    .portfolio-grid, .reviews-grid, .tips-grid, .projects-grid {
+      display: grid;
+      gap: 20px;
+    }
+    .portfolio-grid { grid-template-columns: repeat(3, 1fr); }
+    .reviews-grid { grid-template-columns: repeat(3, 1fr); }
+    .tips-grid { grid-template-columns: repeat(2, 1fr); }
+    .projects-grid { grid-template-columns: repeat(3, 1fr); }
 
+    .placeholder {
+      background: #efefef;
+      border: 1px dashed #bbb;
+      border-radius: 18px;
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #777;
+      font-weight: 700;
+      margin-bottom: 14px;
+      padding: 20px;
+    }
+
+    .dark-section {
+      background: #222;
+      color: white;
+    }
+    .dark-section .section-intro {
+      color: #d4d4d4;
+    }
+    .dark-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      padding: 20px;
+    }
+    .service-cities {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .service-cities span {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-weight: 700;
+    }
+    .cta {
+      background: #f0e0b8;
+      text-align: center;
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+    }
+    .cta a {
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 14px;
+      padding: 16px 22px;
+      border-radius: 14px;
+      background: #222;
+      color: white;
+      font-weight: 700;
+    }
+    .footer {
+      background: white;
+      border-top: 1px solid #ddd;
+      padding: 25px 20px 90px;
+      color: #666;
+      text-align: center;
+    }
+    .mobile-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255,255,255,0.97);
+      border-top: 1px solid #ddd;
+      padding: 10px;
+      display: flex;
+      gap: 10px;
+    }
+    .mobile-bar a {
+      flex: 1;
+      text-align: center;
+      text-decoration: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .about,
+      .cards,
+      .portfolio-grid,
+      .reviews-grid,
+      .tips-grid,
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+      h1 {
+        font-size: 38px;
+      }
+    }
+  </style>
+</head>
 <body>
 
-<h1>AhmaStone Handyman Service</h1>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div>
+        <div class="brand">AhmaStone Handyman Service</div>
+        <div class="subbrand">Layton, Utah • David Brewer</div>
+      </div>
+      <div class="nav-actions">
+        <a href="sms:18019180572" class="btn-light">Text David</a>
+        <a href="tel:18019180572" class="btn-dark">Call David</a>
+      </div>
+    </div>
+  </div>
 
-<p>Reliable home repairs, installs, and remodel help in Layton, Utah.</p>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">Licensed & Insured • Layton, UT</div>
+        <h1>Reliable Handyman Services in Layton, Utah</h1>
+        <p>
+          Home repairs, installs, and remodel help done with care, attention to detail,
+          and workmanship built to last.
+        </p>
+        <div class="hero-buttons">
+          <a href="sms:18019180572" class="btn-dark">Text David a Photo of Your Project</a>
+          <a href="tel:18019180572" class="btn-light">Call (801) 918-0572</a>
+        </div>
+        <div class="badges">
+          <div class="badge">Owner: David Brewer</div>
+          <div class="badge">Fast Response</div>
+          <div class="badge">Repairs & Installs</div>
+          <div class="badge">Text Photos for Estimates</div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h3>Done Right. Built To Last.</h3>
+        <p>
+          AhmaStone Handyman Service helps homeowners tackle repairs, installs,
+          and project punch-list items without the stress and runaround.
+        </p>
+        <p>
+          Organized, dependable, and focused on quality from start to finish.
+        </p>
+      </div>
+    </div>
+  </section>
 
-<h2>Owned & Operated by David Brewer</h2>
+  <section>
+    <div class="container">
+      <h2 class="section-title">Services</h2>
+      <p class="section-intro">
+        Practical, high-quality handyman help for the jobs that make a home feel finished, functional, and well cared for.
+      </p>
+      <div class="cards">
+        <div class="card">
+          <h3>Home Repairs</h3>
+          <p>Drywall fixes, trim touch-ups, door adjustments, hardware swaps, and everyday household repairs.</p>
+        </div>
+        <div class="card">
+          <h3>Installs</h3>
+          <p>Ceiling fans, light fixtures, faucets, shelving, hardware, and other home installs handled with precision.</p>
+        </div>
+        <div class="card">
+          <h3>Remodel Help</h3>
+          <p>Dependable support for finishing work, updates, punch-list items, and small remodel projects.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<br>
+  <section style="background:#fcfaf6;">
+    <div class="container about">
+      <div class="card">
+        <h2 class="section-title">About David Brewer</h2>
+        <p>
+          David Brewer, owner of AhmaStone Handyman Service, is known for reliable service,
+          organized project management, and strong attention to detail.
+        </p>
+        <p>
+          Whether the job is a simple repair or part of a larger home update, David focuses on
+          doing the work carefully and doing it right.
+        </p>
+        <p>
+          This section can be updated later with David’s own words, background, and experience.
+        </p>
+      </div>
+      <div class="photo-box">Future Photo of David or Work Truck</div>
+    </div>
+  </section>
 
-<button onclick="window.location.href='sms:18019180572'">
-Text David a Photo of Your Project
-</button>
+  <section>
+    <div class="container">
+      <h2 class="section-title">Portfolio</h2>
+      <p class="section-intro">
+        Real project photos will make this section shine. For now, these placeholders show how his work can be displayed.
+      </p>
+      <div class="portfolio-grid">
+        <div class="card">
+          <div class="placeholder">Before & After Repairs</div>
+          <h3>Repairs</h3>
+          <p>Drywall patching, trim fixes, and repair work that restores function and appearance.</p>
+        </div>
+        <div class="card">
+          <div class="placeholder">Fixture & Fan Installs</div>
+          <h3>Installs</h3>
+          <p>Ceiling fans, faucets, shelves, lighting, and more.</p>
+        </div>
+        <div class="card">
+          <div class="placeholder">Finish Work & Updates</div>
+          <h3>Remodel Support</h3>
+          <p>Small projects, finishing work, and the details that make a project feel complete.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<br><br>
+  <section class="dark-section">
+    <div class="container">
+      <h2 class="section-title">What Customers Say</h2>
+      <p class="section-intro">
+        Replace these with real customer reviews later.
+      </p>
+      <div class="reviews-grid">
+        <div class="dark-card">
+          <p>★★★★★</p>
+          <p>David was professional, organized, and his attention to detail was outstanding.</p>
+          <strong>Happy Homeowner</strong>
+        </div>
+        <div class="dark-card">
+          <p>★★★★★</p>
+          <p>The work was clean, well done, and finished the right way.</p>
+          <strong>Happy Homeowner</strong>
+        </div>
+        <div class="dark-card">
+          <p>★★★★★</p>
+          <p>Great communication and quality craftsmanship from start to finish.</p>
+          <strong>Happy Homeowner</strong>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<button onclick="window.location.href='tel:18019180572'">
-Call David
-</button>
+  <section>
+    <div class="container">
+      <h2 class="section-title">Quick Fix Tips</h2>
+      <p class="section-intro">
+        Helpful advice builds trust. Each tip can end with a prompt to text David if it doesn’t solve the problem.
+      </p>
+      <div class="tips-grid">
+        <div class="card">
+          <h3>Running Toilet</h3>
+          <p>Check the flapper chain inside the tank. If it’s too tight or tangled, the flapper may not seal properly.</p>
+          <strong>Still not fixed? Text David at (801) 918-0572.</strong>
+        </div>
+        <div class="card">
+          <h3>Garbage Disposal Not Working</h3>
+          <p>Look for the red reset button underneath the unit and press it, then try the switch again.</p>
+          <strong>Still stuck? Text David a photo.</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#fcfaf6;">
+    <div class="container">
+      <h2 class="section-title">Serving Layton & Nearby Communities</h2>
+      <p class="section-intro">
+        AhmaStone Handyman Service proudly helps homeowners in and around Northern Davis County.
+      </p>
+      <div class="service-cities">
+        <span>Layton</span>
+        <span>Kaysville</span>
+        <span>Syracuse</span>
+        <span>Clearfield</span>
+        <span>Farmington</span>
+        <span>Clinton</span>
+        <span>West Point</span>
+        <span>South Weber</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2 class="section-title">Recent Local Projects</h2>
+      <p class="section-intro">
+        This section helps the site feel active and local, and it gives Google more location-specific content.
+      </p>
+      <div class="projects-grid">
+        <div class="card">
+          <h3>Door Repair in Kaysville</h3>
+          <p>Short write-up about a recent door repair project with a photo later.</p>
+        </div>
+        <div class="card">
+          <h3>Ceiling Fan Install in Layton</h3>
+          <p>Short write-up about a recent fan installation project with a photo later.</p>
+        </div>
+        <div class="card">
+          <h3>Bathroom Fixture Update in Syracuse</h3>
+          <p>Short write-up about a recent fixture replacement project with a photo later.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2 class="section-title">Need a Reliable Handyman?</h2>
+      <p class="section-intro" style="margin:0 auto;">
+        Text David a photo of your project for a quick estimate, or call to talk through what you need.
+      </p>
+      <a href="sms:18019180572">Text David a Photo of Your Project</a>
+    </div>
+  </section>
+
+  <div class="footer">
+    AhmaStone Handyman Service • David Brewer • Layton, Utah • (801) 918-0572
+  </div>
+
+  <div class="mobile-bar">
+    <a href="tel:18019180572" class="btn-dark">Call David</a>
+    <a href="sms:18019180572" class="btn-light">Text David</a>
+  </div>
 
 </body>
 </html>
